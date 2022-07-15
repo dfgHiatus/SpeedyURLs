@@ -11,29 +11,20 @@ namespace SpeedyURLNamespace
     {
         public override string Name => "SpeedyURLs";
         public override string Author => "dfgHiatus";
-        public override string Version => "1.0.0";
+        public override string Version => "1.1.0";
         public override string Link => "https://github.com/dfgHiatus/SpeedyURLs/";
         public override void OnEngineInit()
         {
             Harmony harmony = new Harmony("net.dfgHiatus.SpeedyURLs");
             harmony.PatchAll();
         }
-		
-        [HarmonyPatch(typeof(HyperlinkOpenDialog), "Setup")]
+
+        [HarmonyPatch(typeof(UIExtensions), "EnableTimeout", new Type[] {typeof(Component), typeof(IField<bool>), typeof(IField<string>), typeof(int)})]
         public class HyperlinkOpenDialogPatch
         {
-            public static bool Prefix(Hyperlink __instance, Uri uri, string reason, 
-                SyncRef<Text> ____hyperlinkText, SyncRef<Text> ____reasonText, SyncRef<Button> ____openButton)
+            public static void Prefix(ref int timeout)
             {
-                __instance.URL.Value = uri;
-                ____hyperlinkText.Target.Content.Value = uri?.ToString();
-                if (reason == null)
-                    ____reasonText.Target.Content.SetLocalized("Security.HostAccess.NoReason");
-                else
-                    ____reasonText.Target.Content.SetLocalized("Security.HostAccess.Reason", null, nameof(reason), reason);
-                // Remove the 5-second delay on hyperlinks
-                // ____openButton.Target.EnableTimeout(0);
-                return false;
+                timeout = 0;
             }
         }
     }
