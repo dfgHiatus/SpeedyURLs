@@ -1,3 +1,9 @@
+# This repo is no longer maintained.
+
+Please visit [LeCloutPanda's version of SpeedyURLs](https://github.com/LeCloutPanda/SpeedyURLs) for the latest version.
+
+---
+
 # SpeedyURLs
 
 A [ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader) mod for [Resonite](https://resonite.com/) that removes the 5-second cool-down on url consent popups.
